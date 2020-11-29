@@ -1,14 +1,16 @@
 import React from 'react';
 
-export function Ibox (title, heading, content) {
+function Ibox (props) {
 
     return (
         <div className="ibox">
             <div className="ibox-title">
-                <h5>{title}</h5>
+                <h5>{props.title}</h5>
             </div>
             <div className="ibox-content">
-                    {content}
+            {props.children}
             </div>
         </div>
     )}
+
+export default Ibox;
