@@ -4,8 +4,9 @@ import NavBar from '../NavBar/NavBar';
 import TopBar from '../TopBar/TopBar';
 import {requests} from '../../requests';
 
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 import IssueList from '../IssueList/IssueList';
+import Issue from '../Issue/Issue';
 import ProjectList from '../ProjectList/ProjectList';
 
 
@@ -13,16 +14,18 @@ function App() {
   return (
     <div id="wrapper">
       <NavBar />
-      <TopBar />
-      <Header />
+      <div id="page-wrapper" className="gray-bg">
+        <TopBar />
+      {/* <Header title={this.props.title}/> */}
       <Router>
         <Route exact={true} path="/">
-          <ProjectList fetchUrl={requests.fetchProject}/>
+          <ProjectList fetchUrl={requests.fetchProject} />
         </Route>
-        <Route path="/issues">
-          <IssueList />
+        <Route path="/issues/:key">
+          <IssueList fetchUrl={requests.fetchIssues} />
         </Route>
       </Router>
+    </div>
     </div>
   );
 }

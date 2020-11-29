@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import jira from '../Jira/Jira';
 import Ibox from '../Shared/Ibox';
-import Content from '../Shared/Content';
+import IboxSearch from '../Shared/IboxSearch';
 
 function ProjectList({ fetchUrl }) {
   const [ projects, setProjects ] = useState([]);
+  const title = "Project List";
 
   const avatar = "project.lead.avatarUrls.16x16";
 
@@ -13,52 +15,39 @@ function ProjectList({ fetchUrl }) {
       const response = await jira
         .get(fetchUrl, { params: { expand: 'issueTypes' }})
         .catch((err) => console.log(err));
-        console.log(response)
 
       if (response && response.data) {
-          setProjects(response.data)
         setProjects(response.data.map(project => {
-          return {
-            id: project.id,
-            key: project.key,
-            name: project.name,
-            self: project.self,
-            issueTypes: project.issueTypes
-          }
+
+            return {
+                id: project.id,
+                key: project.key,
+                name: project.name,
+                self: project.self,
+                issueTypes: project.issueTypes
+            }
         })
+        
       )
     }}
 
     getProjects();
   }, [fetchUrl])
-    
+    let projectProgress = '50%';
     return (
-        <Ibox>
-            <Content>
-        <div className="m-b-sm m-t-sm">
-            <div className="input-group">
-                <div className="input-group-prepend">
-                    <button tabIndex="-1" className="btn btn-white btn-sm" type="button"><i className="fa fa-refresh"></i> Refresh</button>
-                </div>
-                <input type="text" className="form-control form-control-sm" />
-
-                <div className="input-group-append">
-                    <button tabIndex="-1" className="btn btn-primary btn-sm" type="button">Go!</button>
-                </div>
-            </div>
-        </div>
-
+        <Ibox title={title}>
+        <IboxSearch />
       <div className="project-list">
         <table className="table table-hover">               
         <tbody>
         { projects.map(project => (
           <tr key={project.key}>
             <td className="project-status"><span className="label label-primary">Active</span></td>
-            <td className="project-title"><a href={project.self}  target='_blank' rel='noreferrer'>{project.name}</a></td>
+            <td className="project-title"><Link to={`/issues/${project.key}`}>{project.name}</Link></td>
             <td className="project-completion">
-              <small>Completion with : 48%</small>
+              <small>Completion with : {projectProgress}</small>
               <div className="progress progress-mini">
-              <div className="progress-bar"></div>
+              <div className="progress-bar" style={{width: projectProgress}}></div>
               </div>
             </td>
             <td className="project-people">
@@ -74,7 +63,6 @@ function ProjectList({ fetchUrl }) {
         </tbody>
         </table>
       </div>
-      </Content>
       </Ibox>
     )
   }

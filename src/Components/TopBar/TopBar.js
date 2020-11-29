@@ -2,11 +2,10 @@ import React from 'react';
 
 function TopBar() {
     return (
-    <div id="page-wrapper" className="gray-bg">
         <div className="row border-bottom">
         <nav className="navbar navbar-static-top  " role="navigation" >
         <div className="navbar-header">
-            <a className="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i className="fa fa-bars"></i> </a>
+            <a className="navbar-minimalize minimalize-styl-2 btn btn-primary " href="index.html"><i className="fa fa-bars"></i> </a>
             <form role="search" className="navbar-form-custom" action="search_results.html">
                 <div className="form-group">
                     <input type="text" placeholder="Search for something..." className="form-control" name="top-search" id="top-search" />
@@ -18,14 +17,14 @@ function TopBar() {
                     <span className="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
                 </li>
                 <li className="dropdown">
-                    <a className="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                    <a className="dropdown-toggle count-info" data-toggle="dropdown" href="index.html">
                         <i className="fa fa-envelope"></i>  <span className="label label-warning">16</span>
                     </a>
                     <ul className="dropdown-menu dropdown-messages">
                         <li>
                             <div className="dropdown-messages-box">
                                 <a className="dropdown-item float-left" href="profile.html">
-                                    <img alt="image" className="rounded-circle" src="img/a7.jpg" />
+                                    <img alt="a7" className="rounded-circle" src="img/a7.jpg" />
                                 </a>
                                 <div className="media-body">
                                     <small className="float-right">46h ago</small>
@@ -38,7 +37,7 @@ function TopBar() {
                         <li>
                             <div className="dropdown-messages-box">
                                 <a className="dropdown-item float-left" href="profile.html">
-                                    <img alt="image" className="rounded-circle" src="img/a4.jpg" />
+                                    <img alt="a4" className="rounded-circle" src="img/a4.jpg" />
                                 </a>
                                 <div className="media-body ">
                                     <small className="float-right text-navy">5h ago</small>
@@ -51,7 +50,7 @@ function TopBar() {
                         <li>
                             <div className="dropdown-messages-box">
                                 <a className="dropdown-item float-left" href="profile.html">
-                                    <img alt="image" className="rounded-circle" src="img/profile.jpg" />
+                                    <img alt="iprofile" className="rounded-circle" src="img/profile.jpg" />
                                 </a>
                                 <div className="media-body ">
                                     <small className="float-right">23h ago</small>
@@ -71,7 +70,7 @@ function TopBar() {
                     </ul>
                 </li>
                 <li className="dropdown">
-                    <a className="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                    <a className="dropdown-toggle count-info" data-toggle="dropdown" href="index.html">
                         <i className="fa fa-bell"></i>  <span className="label label-primary">8</span>
                     </a>
                     <ul className="dropdown-menu dropdown-alerts">
@@ -123,7 +122,6 @@ function TopBar() {
 
         </nav>
         </div>
-    </div>
     )
 }
 
