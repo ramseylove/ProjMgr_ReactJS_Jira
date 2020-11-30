@@ -5,7 +5,6 @@ import jira from '../Jira/Jira';
 import { requests } from '../../requests';
 
 import Ibox from '../Shared/Ibox';
-
 import Issue from '../Issue/Issue';
 
 function IssueList () {
@@ -33,7 +32,8 @@ function IssueList () {
             <table className="table table-hover">
                 <tbody>
                 {issues.map(issue => {
-                    return <Issue key={issue.id}
+                    return <Issue key={issue.key}
+                                    id={issue.key}
                                     name={issue.fields.description}
                                     created={DateFormat(issue.fields.created, "mmmm dS, yyyy")}
                                     avatarUrl={issue.fields.creator.avatarUrls}

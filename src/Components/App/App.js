@@ -6,7 +6,7 @@ import {requests} from '../../requests';
 
 // import Header from '../Header/Header';
 import IssueList from '../IssueList/IssueList';
-import Issue from '../Issue/Issue';
+import IssueDetail from '../IssueDetail/IssueDetail';
 import ProjectList from '../ProjectList/ProjectList';
 
 
@@ -23,6 +23,9 @@ function App() {
         </Route>
         <Route path="/issues/:key">
           <IssueList fetchUrl={requests.fetchIssues} />
+        </Route>
+        <Route path="/issue/:key">
+          <IssueDetail fetchUrl={requests.fetchIssue} />
         </Route>
       </Router>
     </div>
