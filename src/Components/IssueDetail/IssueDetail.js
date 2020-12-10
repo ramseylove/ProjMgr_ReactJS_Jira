@@ -2,47 +2,45 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import jira from '../Jira/Jira';
 
+import { requests } from '../../requests';
+
 import IssueDetailView from './IssueDetailView';
 import Comments from '../Comments/Comments';
 import TabbedPanel from '../Shared/TabbedPanel';
 
 
 function IssueDetail (props) {
-    const [ issue, setIssue ] = useState({});
-    const [ comments, setComments ] = useState()
-    const [ issueType, setIssueType ] = useState({})
-    const [ isLoading, setIsLoading ] = useState(true)
-    const { key } = useParams();
+    const [ issue, setIssue ] = useState([]);
+    const [ comments, setComments ] = useState([]);
+    const [ issueType, setIssueType ] = useState({});
+    const { issue_key } = useParams();
 
-    useEffect(()=> {
-        async function fetchIssue() {
+    const fetchIssue = async () => {
         const response = await jira
-            .get(props.fetchUrl + key)
+            .get(props.fetchIssue + issue_key)
             .catch((err) => console.log(err));
 
         if (response && response.data){ 
             const issue_detail = response.data; 
-            setIssue({
-                issue: issue_detail,
-                fields: issue_detail.fields,
-                creator: issue_detail.fields.creator
-            })
+            setIssue(response.data)
             setComments(issue_detail.fields.comment)
             setIssueType({issueType: issue_detail.fields.issuetype})
-            console.log(issue.issue)
-            setIsLoading(false)
+            console.log('issueDetail ' + issue)
             
         };
     }
-    fetchIssue();
+    useEffect(()=> {
+        fetchIssue();
     // eslint-disable-next-line
-    }, [key])
+    }, [])
 
     return (
         <div>
+            <h1>IssueDetail</h1>
         <IssueDetailView 
-            issue={issue}
-            issueType={issueType} />
+            issue={issue.id}
+            issueType={issueType}
+            fields={issue.fields} />
 
         <TabbedPanel>
             <Comments comments={comments} tab="tabOne"/>

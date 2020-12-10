@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useRouteMatch } from 'react-router-dom';
 
 function Issue (props) {
     let avatarUrl = props.avatarUrl['16x16']
-    
+    // const { url } = useRouteMatch();
+    // const { issueId } = useParams();
     return(
             <tr>
                 <td className="project-status">
                     <span className="label label-primary">Active</span>
                 </td>
                 <td className="project-title">
-                <Link to={`/issue/${props.id}`}>
+                <Link to={`/issueDetail/${props.id}`}>
                     {props.name}
                     </Link>
                     <br />
