@@ -11,8 +11,7 @@ function IssueList () {
     const [ issues, setIssues ] = useState([])
     const { key } = useParams();
 
-    useEffect(()=> {
-        async function fetchIssues() {
+    const fetchIssues = async () => {
         const response = await jira
             .get(requests.fetchIssues + key)
             .catch((err) => console.log(err));
@@ -22,9 +21,11 @@ function IssueList () {
             console.log(issues)
         };
     }
-    fetchIssues();
+
+    useEffect(()=> {
+        fetchIssues();
     // eslint-disable-next-line
-    }, [key])
+    }, [])
 
     return(
         <Ibox title="Issues">
@@ -33,10 +34,11 @@ function IssueList () {
                 <tbody>
                 {issues.map(issue => {
                     return <Issue key={issue.key}
-                                    id={issue.key}
+                                    id={issue.id}
                                     name={issue.fields.description}
                                     created={DateFormat(issue.fields.created, "mmmm dS, yyyy")}
                                     avatarUrl={issue.fields.creator.avatarUrls}
+                                    fetchUrl={requests.fetchIssue}
                                     />
                 })}
                 </tbody>

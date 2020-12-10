@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import jira from '../Jira/Jira';
+import Project from '../Project/Project';
 import Ibox from '../Shared/Ibox';
 import IboxSearch from '../Shared/IboxSearch';
 import Project from '../Project/Project';
 
 function ProjectList({ fetchUrl }) {
   const [ projects, setProjects ] = useState([]);
+  const { url } = useRouteMatch();
   const title = "Project List";
 
+  
   useEffect(() => {
     async function getProjects () {
       const response = await jira
@@ -35,13 +38,7 @@ function ProjectList({ fetchUrl }) {
     return (
         <Ibox title={title}>
         <IboxSearch />
-      <div className="project-list">
-        <table className="table table-hover">               
-        <tbody>
-        <Project projects={projects} />
-        </tbody>
-        </table>
-      </div>
+        <Project projects={projects}/>
       </Ibox>
     )
   }

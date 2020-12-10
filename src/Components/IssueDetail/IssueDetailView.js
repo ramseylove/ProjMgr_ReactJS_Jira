@@ -2,9 +2,10 @@ import React from 'react';
 import DateFormat from 'dateformat';
 
 function IssueDetailView(props) {
-    const issue = props.issue.issue;
-    const fields = props.issue.fields;
+    const issueId = props.issueId;
+    const fields = props.fields;
     const issueType = props.issueType.issueType;
+    console.log(issueId);
     // const projectCategory = fields.project.projectCategory;
     
     return(
@@ -12,7 +13,7 @@ function IssueDetailView(props) {
             <div className="col-lg-12">
                 <div className="m-b-md">
                     <a href="edit.html" className="btn btn-white btn-xs float-right">Edit project</a>
-                    <h2>{issue.key}</h2>
+                    <h2>{issueId}</h2>
                 </div>
                 <div className="row">
                     <div className="col-lg-6">
@@ -21,7 +22,7 @@ function IssueDetailView(props) {
                                 <dt>Type:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"><span className="label label-primary">{issueType.name}</span></dd>
+                                <dd className="mb-1"><span className="label label-primary">{}</span></dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -29,7 +30,7 @@ function IssueDetailView(props) {
                                 <dt>Created by:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1">{fields.creator.displayName}</dd>
+                                <dd className="mb-1">{}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -37,7 +38,7 @@ function IssueDetailView(props) {
                                 <dt>Project:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1">{fields.project.name}</dd>
+                                <dd className="mb-1">{}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
