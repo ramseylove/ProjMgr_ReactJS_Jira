@@ -4,7 +4,6 @@ import jira from '../Jira/Jira';
 import Project from '../Project/Project';
 import Ibox from '../Shared/Ibox';
 import IboxSearch from '../Shared/IboxSearch';
-import Project from '../Project/Project';
 
 function ProjectList({ fetchUrl }) {
   const [ projects, setProjects ] = useState([]);

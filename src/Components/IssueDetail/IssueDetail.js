@@ -11,22 +11,22 @@ import TabbedPanel from '../Shared/TabbedPanel';
 
 function IssueDetail (props) {
     const [ issue, setIssue ] = useState([]);
-    const [ comments, setComments ] = useState([]);
-    const [ issueType, setIssueType ] = useState({});
+    // const [ comments, setComments ] = useState([]);
+    // const [ issueType, setIssueType ] = useState({});
     const { issue_key } = useParams();
 
     const fetchIssue = async () => {
         const response = await jira
-            .get(props.fetchIssue + issue_key)
+            .get(requests.fetchIssue + issue_key)
             .catch((err) => console.log(err));
 
         if (response && response.data){ 
             const issue_detail = response.data; 
-            setIssue(response.data)
-            setComments(issue_detail.fields.comment)
-            setIssueType({issueType: issue_detail.fields.issuetype})
-            console.log('issueDetail ' + issue)
-            
+            setIssue(response.data);
+            // setComments(issue_detail.fields.comment);
+            // setIssueType({issueType: issue_detail.fields.issuetype});
+            console.log('Issue Detail: ');
+            console.log(response.data);
         };
     }
     useEffect(()=> {
@@ -39,11 +39,11 @@ function IssueDetail (props) {
             <h1>IssueDetail</h1>
         <IssueDetailView 
             issue={issue.id}
-            issueType={issueType}
+            issueType={issue.fields.issuetype}
             fields={issue.fields} />
 
         <TabbedPanel>
-            <Comments comments={comments} tab="tabOne"/>
+            {/* <Comments comments={comments} tab="tabOne"/> */}
         </TabbedPanel>
         </div>
     )

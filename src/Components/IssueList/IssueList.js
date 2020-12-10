@@ -18,7 +18,7 @@ function IssueList () {
 
         if (response && response.data){
             setIssues(response.data.issues)
-            console.log(issues)
+            // console.log(issues)
         };
     }
 

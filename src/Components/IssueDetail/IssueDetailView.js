@@ -4,8 +4,9 @@ import DateFormat from 'dateformat';
 function IssueDetailView(props) {
     const issueId = props.issueId;
     const fields = props.fields;
-    const issueType = props.issueType.issueType;
-    console.log(issueId);
+    const issueType = props.issueType;
+    // const avatar = fields.reporter.avatarUrls;
+    console.log('Issue Id: ' + issueId);
     // const projectCategory = fields.project.projectCategory;
     
     return(
@@ -22,7 +23,7 @@ function IssueDetailView(props) {
                                 <dt>Type:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"><span className="label label-primary">{}</span></dd>
+                                <dd className="mb-1"><span className="label label-primary">{issueType.name}</span></dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -30,7 +31,7 @@ function IssueDetailView(props) {
                                 <dt>Created by:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1">{}</dd>
+                                <dd className="mb-1">{fields.creator.displayName}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -38,7 +39,7 @@ function IssueDetailView(props) {
                                 <dt>Project:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1">{}</dd>
+                                <dd className="mb-1">{fields.project.name}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -59,7 +60,10 @@ function IssueDetailView(props) {
                                 <dt>Last Updated:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1">{DateFormat(fields.updated, "mmmm dS, yyyy")}</dd>
+                                { 
+                                ( props.fields.updated && 
+                                <dd className="mb-1">{DateFormat(props.fields.updated, "mmmm dS, yyyy")}</dd>) 
+                                }
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -76,7 +80,7 @@ function IssueDetailView(props) {
                             </div>
                             <div className="col-sm-8 text-sm-left">
                                 <dd className="project-people mb-1">
-                                    <a href="http://webapplayers.com/inspinia_admin-v2.9.3/img/a3.jpg"><img alt="image" className="rounded-circle" src="http://webapplayers.com/inspinia_admin-v2.9.3/img/a3.jpg" /></a>
+                                    {/* <img alt="reporter" className="rounded-circle" src={} /> */}
                                 </dd>
                             </div>
                         </dl>
