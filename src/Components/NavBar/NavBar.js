@@ -9,7 +9,7 @@ function NavBar () {
             <div className="sidebar-collapse">
                 <ul className="nav metismenu" id="side-menu">
                     <li className="nav-header">NavBar</li>
-                    <NavItem name='Home' />
+                    <NavItem name='Home' pathName='/' />
                 </ul>
             </div>
         </nav>

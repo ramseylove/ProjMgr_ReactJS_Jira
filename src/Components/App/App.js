@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div id="wrapper">
-      <NavBar />
+        <NavBar />
       <div id="page-wrapper" className="gray-bg">
         <TopBar />
       {/* <Header title={this.props.title}/> */}
