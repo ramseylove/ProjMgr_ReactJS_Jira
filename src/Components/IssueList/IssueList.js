@@ -11,21 +11,23 @@ function IssueList () {
     const [ issues, setIssues ] = useState([])
     const { key } = useParams();
 
-    const fetchIssues = async () => {
-        const response = await jira
-            .get(requests.fetchIssues + key)
-            .catch((err) => console.log(err));
-
-        if (response && response.data){
-            setIssues(response.data.issues)
-            // console.log(issues)
-        };
-    }
-
+    
+//DateFormat(issue.fields.created, "mmmm dS, yyyy")
     useEffect(()=> {
+        const fetchIssues = async () => {
+            const response = await jira
+                .get(requests.fetchIssues + key)
+                .catch((err) => console.log(err));
+    
+            if (response && response.data){
+                setIssues(response.data.issues)
+                
+            };
+            console.log(issues)
+        }
         fetchIssues();
     // eslint-disable-next-line
-    }, [])
+    }, [key])
 
     return(
         <Ibox title="Issues">
