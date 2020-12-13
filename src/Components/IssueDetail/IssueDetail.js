@@ -18,32 +18,74 @@ function IssueDetail (props) {
 
     
     useEffect(()=> {
-        const fetchIssue = async () => {
+        async function fetchIssue () {
             const response = await jira
                 .get(fetchUrl + issue_key)
                 .catch((err) => console.log(err));
 
-            if (response && response.data){ 
-                setIssue(response.data);
-            //     // const issue_detail = response.data;
-            //     // setIssue({issue: response.data});
-            //     // setComments(issue.issue.fields.comment);
-            //     // setIssueType(response.data.fields.issuetype);
-            //     console.log('Issue Detail: ');
-            //     // console.log(issue.issue);
-            //     // console.log(issue.data.fields);
-            };
-            console.log(issue);
+                // const issueArray = [response.data];
+
+                // console.log(issueArray);
+                setIssue({issue: response.data})
+
+                // const issueData = issueArray.map(issue => {
+                //         return {
+                //             id: issue.id,
+                //             key: issue.key,
+                //             description: issue.fields.description,
+                //             summary: issue.fields.summary,
+                //             project: issue.fields.project,
+                //             created: issue.fields.created,
+                //             updated: issue.fields.updated,
+                //             priority: issue.fields.priority,
+                //             assignee: issue.fields.assignee,
+                //             status: issue.fields.status,
+                //             creator: issue.fields.creator
+                //         }});
+                // setIssue(issueData)
+
+
+                // const getNestedObjects = (nestedObj, PathArr) => {
+                //     return PathArr.reduce((obj, key) => 
+                //     (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj)
+                // }
+
+                // const issueDeNested = getNestedObjects(response.data, ['fields', 'creator']);
+
+                // console.log(issueDeNested)
+
+                // for (const [ key, value ] of Object.entries(response.data)){
+                //     console.log(`${key}: ${value}`)
+                // }
+                // for (const [ key, value ] of Object.entries(response.data.fields)){
+                //     console.log(`${key}: ${value}`)
+                // }
+                // setIssue(response.data.map(issue => {
+                //     return {
+                //         id: issue.id,
+                //         key: issue.key,
+                //         description: issue.fields.description,
+                //         summary: issue.fields.summary,
+                //         project: issue.fields.project,
+                //         created: issue.fields.created,
+                //         updated: issue.fields.updated,
+                //         priority: issue.fields.priority,
+                //         assignee: issue.fields.assignee,
+                //         status: issue.fields.status,
+                //         creator: issue.fields.creator
+                //     }}
+                // ))
+            
         }
         fetchIssue();
     // eslint-disable-next-line
-    }, [fetchUrl, issue_key])
+    }, [])
 
     return (
         <div>
             <h1>IssueDetail</h1>
         <IssueDetailView 
-            issue={issue}
+            issue={...issue}
              />
 
         {/* <TabbedPanel>
