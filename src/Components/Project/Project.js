@@ -1,13 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {
+  ProjectPeopleTd,
+  ProjectPeopleDd,
+  ProjectPeopleImg,
+  ProjectActions,
+  ProjectTitle,
+  ProjectListDiv,
+  ProjectListTable,
+  ProjectListTr,
+  ProjectListTd,
+  ProjectManagerLink,
+  ProjectManagerLi,
+  ProjectFilesLink,
+  ProjectFilesLi
+} from '../../Styled/Projects';
+import {
+  Table
+} from 'react-bootstrap';
 
 function Project (props) {
     let projectProgress = '50%';
     const avatar = "project.lead.avatarUrls.16x16";
 
     return (
-        <div className="project-list">
-        <table className="table table-hover">               
+        <ProjectListDiv>
+        <Table hover>               
         <tbody>
         { props.projects.map(project => (
           <tr key={project.key}>
@@ -32,8 +50,8 @@ function Project (props) {
         ))
         }
         </tbody>
-        </table>
-      </div>
+        </Table>
+        </ProjectListDiv>
     )
 }
 export default Project;

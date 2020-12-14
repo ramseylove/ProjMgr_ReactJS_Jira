@@ -11,25 +11,72 @@ import TabbedPanel from '../Shared/TabbedPanel';
 
 function IssueDetail (props) {
     const [ issue, setIssue ] = useState([]);
-    // const [ comments, setComments ] = useState([]);
-    // const [ issueType, setIssueType ] = useState({});
+    // const [ comments, setComments ] = useState({});
+    const [ issueType, setIssueType ] = useState([]);
     const { issue_key } = useParams();
+    const fetchUrl = requests.fetchIssue;
 
-    const fetchIssue = async () => {
-        const response = await jira
-            .get(requests.fetchIssue + issue_key)
-            .catch((err) => console.log(err));
-
-        if (response && response.data){ 
-            const issue_detail = response.data; 
-            setIssue(response.data);
-            // setComments(issue_detail.fields.comment);
-            // setIssueType({issueType: issue_detail.fields.issuetype});
-            console.log('Issue Detail: ');
-            console.log(response.data);
-        };
-    }
+    
     useEffect(()=> {
+        async function fetchIssue () {
+            const response = await jira
+                .get(fetchUrl + issue_key)
+                .catch((err) => console.log(err));
+
+                // const issueArray = [response.data];
+
+                // console.log(issueArray);
+                setIssue({issue: response.data})
+
+                // const issueData = issueArray.map(issue => {
+                //         return {
+                //             id: issue.id,
+                //             key: issue.key,
+                //             description: issue.fields.description,
+                //             summary: issue.fields.summary,
+                //             project: issue.fields.project,
+                //             created: issue.fields.created,
+                //             updated: issue.fields.updated,
+                //             priority: issue.fields.priority,
+                //             assignee: issue.fields.assignee,
+                //             status: issue.fields.status,
+                //             creator: issue.fields.creator
+                //         }});
+                // setIssue(issueData)
+
+
+                // const getNestedObjects = (nestedObj, PathArr) => {
+                //     return PathArr.reduce((obj, key) => 
+                //     (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj)
+                // }
+
+                // const issueDeNested = getNestedObjects(response.data, ['fields', 'creator']);
+
+                // console.log(issueDeNested)
+
+                // for (const [ key, value ] of Object.entries(response.data)){
+                //     console.log(`${key}: ${value}`)
+                // }
+                // for (const [ key, value ] of Object.entries(response.data.fields)){
+                //     console.log(`${key}: ${value}`)
+                // }
+                // setIssue(response.data.map(issue => {
+                //     return {
+                //         id: issue.id,
+                //         key: issue.key,
+                //         description: issue.fields.description,
+                //         summary: issue.fields.summary,
+                //         project: issue.fields.project,
+                //         created: issue.fields.created,
+                //         updated: issue.fields.updated,
+                //         priority: issue.fields.priority,
+                //         assignee: issue.fields.assignee,
+                //         status: issue.fields.status,
+                //         creator: issue.fields.creator
+                //     }}
+                // ))
+            
+        }
         fetchIssue();
     // eslint-disable-next-line
     }, [])
@@ -38,13 +85,12 @@ function IssueDetail (props) {
         <div>
             <h1>IssueDetail</h1>
         <IssueDetailView 
-            issue={issue.id}
-            issueType={issue.fields.issuetype}
-            fields={issue.fields} />
+            issue={...issue}
+             />
 
-        <TabbedPanel>
-            {/* <Comments comments={comments} tab="tabOne"/> */}
-        </TabbedPanel>
+        {/* <TabbedPanel>
+            <Comments comments={comments} tab="tabOne"/>
+        </TabbedPanel> */}
         </div>
     )
 }
