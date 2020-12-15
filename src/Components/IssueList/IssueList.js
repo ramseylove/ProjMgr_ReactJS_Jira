@@ -7,7 +7,7 @@ import { requests } from '../../requests';
 import Ibox from '../Shared/Ibox';
 import Issue from '../Issue/Issue';
 
-function IssueList () {
+function IssueList (props) {
     const [ issues, setIssues ] = useState([])
     const { key } = useParams();
 
@@ -23,7 +23,7 @@ function IssueList () {
                 setIssues(response.data.issues)
                 
             };
-            console.log(issues)
+            
         }
         fetchIssues();
     // eslint-disable-next-line
@@ -35,12 +35,12 @@ function IssueList () {
             <table className="table table-hover">
                 <tbody>
                 {issues.map(issue => {
-                    return <Issue key={issue.key}
-                                    id={issue.id}
+                    return <Issue   id={issue.id}
                                     name={issue.fields.description}
                                     created={DateFormat(issue.fields.created, "mmmm dS, yyyy")}
                                     avatarUrl={issue.fields.creator.avatarUrls}
-                                    fetchUrl={requests.fetchIssue}
+                                    issueType={issue.fields.issuetype.name}
+                                    fetchUrl={props.fetchUrl}
                                     />
                 })}
                 </tbody>

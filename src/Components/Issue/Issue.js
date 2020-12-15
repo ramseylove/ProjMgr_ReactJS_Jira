@@ -6,14 +6,14 @@ function Issue (props) {
     // const { url } = useRouteMatch();
     // const { issueId } = useParams();
     return(
-            <tr>
+            <tr key={props.id}>
                 <td className="project-status">
-                    <span className="label label-primary">Active</span>
+                    <span className="label label-primary">{props.issueType}</span>
                 </td>
                 <td className="project-title">
                 <Link to={`/issueDetail/${props.id}`}>
                     {props.name}
-                    </Link>
+                </Link>
                     <br />
                     <small>{props.created}</small>
                 </td>

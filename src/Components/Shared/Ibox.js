@@ -7,9 +7,13 @@ function Ibox (props) {
         <div className="row">
             <div className="col-lg-12">
                 <div className="ibox">
-                    <div className="ibox-title">
-                        <h5>{props.title}</h5>
-                    </div>
+                    
+                        { props.title &&
+                            <div className="ibox-title">
+                            <h5>{props.title}</h5>
+                            </div>
+                        }
+                    
                     <div className="ibox-content">
                         {props.children}
                     </div>

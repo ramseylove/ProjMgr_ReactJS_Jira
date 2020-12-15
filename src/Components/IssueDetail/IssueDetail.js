@@ -1,48 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import DateFormat from 'dateformat';
 import jira from '../Jira/Jira';
-
-import { requests } from '../../requests';
 
 import IssueDetailView from './IssueDetailView';
 import Comments from '../Comments/Comments';
 import TabbedPanel from '../Shared/TabbedPanel';
+import Ibox from '../Shared/Ibox';
 
 
 function IssueDetail (props) {
-    const [ issue, setIssue ] = useState([]);
-    // const [ comments, setComments ] = useState({});
-    const [ issueType, setIssueType ] = useState([]);
-    const { issue_key } = useParams();
-    const fetchUrl = requests.fetchIssue;
+    const [ issue, setIssue ] = useState({});
+    const [ comments, setComments ] = useState({});
+    const [ issueType, setIssueType ] = useState({});
 
+    const { issue_key } = useParams();
+
+    
     
     useEffect(()=> {
         async function fetchIssue () {
             const response = await jira
-                .get(fetchUrl + issue_key)
+                .get(props.fetchUrl + issue_key)
                 .catch((err) => console.log(err));
 
-                // const issueArray = [response.data];
+                console.log(response.data)
+                const data = response.data;
 
-                // console.log(issueArray);
-                setIssue({issue: response.data})
-
-                // const issueData = issueArray.map(issue => {
-                //         return {
-                //             id: issue.id,
-                //             key: issue.key,
-                //             description: issue.fields.description,
-                //             summary: issue.fields.summary,
-                //             project: issue.fields.project,
-                //             created: issue.fields.created,
-                //             updated: issue.fields.updated,
-                //             priority: issue.fields.priority,
-                //             assignee: issue.fields.assignee,
-                //             status: issue.fields.status,
-                //             creator: issue.fields.creator
-                //         }});
-                // setIssue(issueData)
+                const assigneeName = (data.fields.assignee == null ? '' : data.fields.assignee.displayName);
+                const assigneeAvatar = (data.fields.assignee == null ? '' : data.fields.assignee.avatarUrls["16x16"]);
+                setIssue({
+                    issueKey: data.key,
+                    id: data.id,
+                    creatorName: data.fields.creator.displayName,
+                    summary: data.fields.summary,
+                    description: data.fields.description,
+                    projectName: data.fields.project.name,
+                    clientName: data.fields.project.projectCategory.name,
+                    status: data.fields.status.name,
+                    createdAt: DateFormat(data.fields.created, "mmmm dS, yyyy"),
+                    updatedAt: DateFormat(data.fields.updated, "mmmm dS, yyyy"),
+                    assigneeName: assigneeName,
+                    assigneeAvatar: assigneeAvatar
+                });
+                setIssueType({
+                    id: data.fields.issuetype.id,
+                    name: data.fields.issuetype.name
+                })
+                console.log(data.fields.comment)
+                
+                
+                if (data.fields.comment.total > 0){
+                    const commentArray = data.fields.comment.comments;
+                    setComments(commentArray.map(comment => (
+                        {
+                            authorName: comment.author.displayName,
+                            authorEmail: comment.author.emailAddress,
+                            authorAvatar: comment.author.avatarUrls["16x16"],
+                            commentBody: comment.body,
+                            id: comment.id,
+                            createdAt: DateFormat(comment.created, "mmmm dS, yyyy"),
+                        }
+                    )
+                    ))
+                }
+                console.log(comments)
 
 
                 // const getNestedObjects = (nestedObj, PathArr) => {
@@ -52,46 +74,35 @@ function IssueDetail (props) {
 
                 // const issueDeNested = getNestedObjects(response.data, ['fields', 'creator']);
 
-                // console.log(issueDeNested)
-
-                // for (const [ key, value ] of Object.entries(response.data)){
-                //     console.log(`${key}: ${value}`)
-                // }
+                
                 // for (const [ key, value ] of Object.entries(response.data.fields)){
                 //     console.log(`${key}: ${value}`)
                 // }
-                // setIssue(response.data.map(issue => {
-                //     return {
-                //         id: issue.id,
-                //         key: issue.key,
-                //         description: issue.fields.description,
-                //         summary: issue.fields.summary,
-                //         project: issue.fields.project,
-                //         created: issue.fields.created,
-                //         updated: issue.fields.updated,
-                //         priority: issue.fields.priority,
-                //         assignee: issue.fields.assignee,
-                //         status: issue.fields.status,
-                //         creator: issue.fields.creator
-                //     }}
-                // ))
             
         }
         fetchIssue();
     // eslint-disable-next-line
-    }, [])
+    }, [issue_key])
+
+    let hasComments = '';
+    if(comments.length > 0) {
+        hasComments = <Comments comments={comments} tab="tabOne"/>
+    }
+
 
     return (
         <div>
             <h1>IssueDetail</h1>
-        <IssueDetailView 
-            issue={...issue}
+        <Ibox>
+        <IssueDetailView
+            {...issue}
              />
 
-        {/* <TabbedPanel>
-            <Comments comments={comments} tab="tabOne"/>
-        </TabbedPanel> */}
-        </div>
+        <TabbedPanel>
+            {hasComments}
+        </TabbedPanel>
+        </Ibox>
+    </div>
     )
 }
 
