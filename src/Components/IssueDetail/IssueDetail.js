@@ -7,6 +7,7 @@ import IssueDetailView from './IssueDetailView';
 import Comments from '../Comments/Comments';
 import TabbedPanel from '../Shared/TabbedPanel';
 import Ibox from '../Shared/Ibox';
+import { data } from 'jquery';
 
 
 function IssueDetail (props) {
@@ -29,20 +30,27 @@ function IssueDetail (props) {
 
                 const assigneeName = (data.fields.assignee == null ? '' : data.fields.assignee.displayName);
                 const assigneeAvatar = (data.fields.assignee == null ? '' : data.fields.assignee.avatarUrls["16x16"]);
-                setIssue({
-                    issueKey: data.key,
-                    id: data.id,
-                    creatorName: data.fields.creator.displayName,
-                    summary: data.fields.summary,
-                    description: data.fields.description,
-                    projectName: data.fields.project.name,
-                    clientName: data.fields.project.projectCategory.name,
-                    status: data.fields.status.name,
-                    createdAt: DateFormat(data.fields.created, "mmmm dS, yyyy"),
-                    updatedAt: DateFormat(data.fields.updated, "mmmm dS, yyyy"),
-                    assigneeName: assigneeName,
-                    assigneeAvatar: assigneeAvatar
-                });
+
+                const {
+                    ...issueObj
+                } = data;
+                console.log(issueObj)
+                setIssue(issueObj)
+                
+                // setIssue({
+                //     issueKey: data.key,
+                //     id: data.id,
+                //     creatorName: data.fields.creator.displayName,
+                //     summary: data.fields.summary,
+                //     description: data.fields.description,
+                //     projectName: data.fields.project.name,
+                //     clientName: data.fields.project.projectCategory.name,
+                //     status: data.fields.status.name,
+                //     createdAt: DateFormat(data.fields.created, "mmmm dS, yyyy"),
+                //     updatedAt: DateFormat(data.fields.updated, "mmmm dS, yyyy"),
+                //     assigneeName: assigneeName,
+                //     assigneeAvatar: assigneeAvatar
+                // });
                 setIssueType({
                     id: data.fields.issuetype.id,
                     name: data.fields.issuetype.name

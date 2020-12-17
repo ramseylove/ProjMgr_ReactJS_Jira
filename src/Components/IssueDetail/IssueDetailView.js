@@ -9,7 +9,7 @@ function IssueDetailView(props) {
             <div className="col-lg-12">
                 <div className="m-b-md">
                     <a href="edit.html" className="btn btn-white btn-xs float-right">Edit project</a>
-                    <h2>{props.summary}</h2>
+                    <h2>{props.fields.summary}</h2>
                 </div>
                 <div className="row">
                     <div className="col-lg-6">
@@ -18,7 +18,7 @@ function IssueDetailView(props) {
                                 <dt>Type:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"><span className="label label-primary">{props.id}</span></dd>
+                                <dd className="mb-1"><span className="label label-primary">{props.fields.issuetype.name}</span></dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
