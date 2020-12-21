@@ -31,26 +31,22 @@ function IssueDetail (props) {
                 const assigneeName = (data.fields.assignee == null ? '' : data.fields.assignee.displayName);
                 const assigneeAvatar = (data.fields.assignee == null ? '' : data.fields.assignee.avatarUrls["16x16"]);
 
-                const {
-                    ...issueObj
-                } = data;
-                console.log(issueObj)
-                setIssue(issueObj)
-                
-                // setIssue({
-                //     issueKey: data.key,
-                //     id: data.id,
-                //     creatorName: data.fields.creator.displayName,
-                //     summary: data.fields.summary,
-                //     description: data.fields.description,
-                //     projectName: data.fields.project.name,
-                //     clientName: data.fields.project.projectCategory.name,
-                //     status: data.fields.status.name,
-                //     createdAt: DateFormat(data.fields.created, "mmmm dS, yyyy"),
-                //     updatedAt: DateFormat(data.fields.updated, "mmmm dS, yyyy"),
-                //     assigneeName: assigneeName,
-                //     assigneeAvatar: assigneeAvatar
-                // });
+                const issueObj = {
+                    issueKey: data.key,
+                    id: data.id,
+                    creatorName: data.fields.creator.displayName,
+                    summary: data.fields.summary,
+                    description: data.fields.description,
+                    projectName: data.fields.project.name,
+                    clientName: data.fields.project.projectCategory.name,
+                    status: data.fields.status.name,
+                    createdAt: DateFormat(data.fields.created, "mmmm dS, yyyy"),
+                    updatedAt: DateFormat(data.fields.updated, "mmmm dS, yyyy"),
+                    assigneeName: assigneeName,
+                    assigneeAvatar: assigneeAvatar
+                }
+                setIssue(issueObj);
+
                 setIssueType({
                     id: data.fields.issuetype.id,
                     name: data.fields.issuetype.name
@@ -72,8 +68,8 @@ function IssueDetail (props) {
                     )
                     ))
                 }
-                console.log(comments)
-
+                console.log(comments);
+                return response.data;
 
                 // const getNestedObjects = (nestedObj, PathArr) => {
                 //     return PathArr.reduce((obj, key) => 
@@ -103,7 +99,8 @@ function IssueDetail (props) {
             <h1>IssueDetail</h1>
         <Ibox>
         <IssueDetailView
-            {...issue}
+            issue={issue}
+            issueType={issueType}
              />
 
         <TabbedPanel>

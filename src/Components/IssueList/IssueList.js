@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import DateFormat from 'dateformat';
 import jira from '../Jira/Jira';
 import { requests } from '../../requests';
@@ -10,6 +10,11 @@ import Issue from '../Issue/Issue';
 function IssueList (props) {
     const [ issues, setIssues ] = useState([])
     const { key } = useParams();
+    const history  = useHistory();
+
+    function handleGoBack() {
+        history.goBack();
+    }
 
     
 //DateFormat(issue.fields.created, "mmmm dS, yyyy")
@@ -31,21 +36,25 @@ function IssueList (props) {
 
     return(
         <Ibox title="Issues">
+            
         <div className="project-list">
             <table className="table table-hover">
                 <tbody>
                 {issues.map(issue => {
-                    return <Issue   id={issue.id}
-                                    name={issue.fields.description}
-                                    created={DateFormat(issue.fields.created, "mmmm dS, yyyy")}
-                                    avatarUrl={issue.fields.creator.avatarUrls}
-                                    issueType={issue.fields.issuetype.name}
-                                    fetchUrl={props.fetchUrl}
-                                    />
+                    return <Issue   
+                                id={issue.id}
+                                name={issue.fields.description}
+                                created={DateFormat(issue.fields.created, "mmmm dS, yyyy")}
+                                avatarUrl={issue.fields.creator.avatarUrls}
+                                issueType={issue.fields.issuetype.name}
+                                fetchUrl={props.fetchUrl}
+                                />
                 })}
                 </tbody>
             </table>
+            
         </div>
+        <button className="btn btn-primary float-right"onClick={handleGoBack}>Go Back</button>
         </Ibox>
         
     )

@@ -5,11 +5,11 @@ function IssueDetailView(props) {
  
     return (
 
-        <div className="row">
+        <div className="row" key={props.issue.id}>
             <div className="col-lg-12">
                 <div className="m-b-md">
                     <a href="edit.html" className="btn btn-white btn-xs float-right">Edit project</a>
-                    <h2>{props.fields.summary}</h2>
+                    <h2>{props.issue.summary}</h2>
                 </div>
                 <div className="row">
                     <div className="col-lg-6">
@@ -18,7 +18,7 @@ function IssueDetailView(props) {
                                 <dt>Type:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"><span className="label label-primary">{props.fields.issuetype.name}</span></dd>
+                                <dd className="mb-1"><span className="label label-primary">{props.issueType.name}</span></dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -26,7 +26,7 @@ function IssueDetailView(props) {
                                 <dt>Created by:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1">{props.creatorName}</dd>
+                                <dd className="mb-1">{props.issue.creatorName}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -34,7 +34,7 @@ function IssueDetailView(props) {
                                 <dt>Project:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1">{props.projectName}</dd>
+                                <dd className="mb-1">{props.issue.projectName}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -42,7 +42,7 @@ function IssueDetailView(props) {
                                 <dt>Client:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"> {props.clientName}</dd>
+                                <dd className="mb-1"> {props.issue.clientName}</dd>
                             </div>
                         </dl>
 
