@@ -34,7 +34,7 @@ function IssueList () {
                 <tbody>
                 {issues.map(issue => {
                     return <Issue key={issue.id}
-                                    name={issue.fields.description}
+                                    name={issue.fields.summary}
                                     created={DateFormat(issue.fields.created, "mmmm dS, yyyy")}
                                     avatarUrl={issue.fields.creator.avatarUrls}
                                     />
