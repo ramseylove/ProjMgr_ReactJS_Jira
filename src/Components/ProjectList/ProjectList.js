@@ -4,11 +4,15 @@ import jira from '../Jira/Jira';
 import Ibox from '../Shared/Ibox';
 import IboxSearch from '../Shared/IboxSearch';
 
-function ProjectList({ fetchUrl }) {
+function ProjectList({ fetchUrl, percentage }) {
   const [ projects, setProjects ] = useState([]);
   const title = "Project List";
 
   const avatar = "project.lead.avatarUrls.16x16";
+
+    function getRandomInt() {
+        return Math.floor(Math.random() * 99);
+    }
 
   useEffect(() => {
     async function getProjects () {
@@ -24,7 +28,8 @@ function ProjectList({ fetchUrl }) {
                 key: project.key,
                 name: project.name,
                 self: project.self,
-                issueTypes: project.issueTypes
+                issueTypes: project.issueTypes,
+                percentage: getRandomInt()
             }
         })
         
@@ -33,7 +38,7 @@ function ProjectList({ fetchUrl }) {
 
     getProjects();
   }, [fetchUrl])
-    let projectProgress = '50%';
+    let projectProgress = 0;
     return (
         <Ibox title={title}>
         <IboxSearch />
@@ -45,9 +50,9 @@ function ProjectList({ fetchUrl }) {
             <td className="project-status"><span className="label label-primary">Active</span></td>
             <td className="project-title"><Link to={`/issues/${project.key}`}>{project.name}</Link></td>
             <td className="project-completion">
-              <small>Completion with : {projectProgress}</small>
+              <small>Completion with : ${project.percentage}%</small>
               <div className="progress progress-mini">
-              <div className="progress-bar" style={{width: projectProgress}}></div>
+              <div className="progress-bar" style={{width: project.percentage + '%' }}></div>
               </div>
             </td>
             <td className="project-people">

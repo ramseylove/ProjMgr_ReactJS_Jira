@@ -3448,26 +3448,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"atria_project_manager@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "atria_project_manager@workspace:."
-  dependencies:
-    "@popperjs/core": ^2.5.4
-    "@testing-library/jest-dom": ^5.11.6
-    "@testing-library/react": ^11.2.2
-    "@testing-library/user-event": ^12.2.2
-    axios: ^0.21.0
-    bootstrap: ^4.5.3
-    dateformat: ^4.0.0
-    jquery: ^3.5.1
-    react: ^17.0.1
-    react-dom: ^17.0.1
-    react-router-dom: ^5.2.0
-    react-scripts: 4.0.0
-    web-vitals: ^0.2.4
-  languageName: unknown
-  linkType: soft
-
 "autoprefixer@npm:^9.6.1":
   version: 9.8.6
   resolution: "autoprefixer@npm:9.8.6"
@@ -11831,6 +11811,26 @@ fsevents@^1.2.7:
   checksum: f67403fe7b34912148d9252cb7481266a354bd99ce82c835f79070643bb3c6583d10dbcfda4d41e04bbc1d8437e9af0fb1e1f2135727878f5308682a579429b7
   languageName: node
   linkType: hard
+
+"projmgr_reactjs_jira@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "projmgr_reactjs_jira@workspace:."
+  dependencies:
+    "@popperjs/core": ^2.5.4
+    "@testing-library/jest-dom": ^5.11.6
+    "@testing-library/react": ^11.2.2
+    "@testing-library/user-event": ^12.2.2
+    axios: ^0.21.0
+    bootstrap: ^4.5.3
+    dateformat: ^4.0.0
+    jquery: ^3.5.1
+    react: ^17.0.1
+    react-dom: ^17.0.1
+    react-router-dom: ^5.2.0
+    react-scripts: 4.0.0
+    web-vitals: ^0.2.4
+  languageName: unknown
+  linkType: soft
 
 "promise-inflight@npm:^1.0.1":
   version: 1.0.1
