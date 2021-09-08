@@ -38,7 +38,7 @@ function ProjectList({ fetchUrl, percentage }) {
 
     getProjects();
   }, [fetchUrl])
-    let projectProgress = 0;
+
     return (
         <Ibox title={title}>
         <IboxSearch />
