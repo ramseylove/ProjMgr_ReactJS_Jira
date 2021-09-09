@@ -8,6 +8,7 @@ import {requests} from '../../requests';
 import IssueList from '../IssueList/IssueList';
 import Issue from '../Issue/Issue';
 import ProjectList from '../ProjectList/ProjectList';
+import IssueDetail from "../IssueDetail/IssueDetail";
 
 
 function App() {
@@ -21,8 +22,11 @@ function App() {
         <Route exact={true} path="/">
           <ProjectList fetchUrl={requests.fetchProject} />
         </Route>
-        <Route path="/issues/:key">
+        <Route exact={true} path="/issues/:key">
           <IssueList fetchUrl={requests.fetchIssues} />
+        </Route>
+          <Route path="/issues/:key/detail">
+          <IssueDetail fetchUrl={requests.fetchIssue} />
         </Route>
       </Router>
     </div>

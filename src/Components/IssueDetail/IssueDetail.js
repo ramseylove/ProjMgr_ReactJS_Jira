@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
+import jira from "../Jira/Jira";
+import {requests} from "../../requests";
+import DateFormat from "dateformat";
+
+import Ibox from '../Shared/Ibox';
 
 function IssueDetail () {
+    const [ issue, setIssue ] = useState({loading: false, issue: null,})
+    const { key } = useParams();
+
+
+    useEffect(()=> {
+        setIssue({loading: true})
+        async function fetchIssue() {
+            const response = await jira
+                .get(requests.fetchIssue + key )
+                .catch((err) => console.log(err));
+
+        if (response && response.data){
+            console.log(response.data)
+            setIssue({loading: false, issue: response.data})
+        };
+        console.log(issue)
+
+    }
+    fetchIssue();
+    // eslint-disable-next-line
+    }, [key])
     return (
-        <div classNameName="row">
+        <Ibox title='Issue' >
+        <div className="row">
             <div className="col-lg-12">
                 <div className="m-b-md">
-                    <a href="edit.html" classNameName="btn btn-white btn-xs float-right">Edit project</a>
-                    <h2>Contract with Zender Company</h2>
+                    <button className="btn btn-white btn-xs float-right">Edit Issue</button>
+                    <h2>{issue.issue.fields.summary}</h2>
                 </div>
                 <div className="row">
                     <div className="col-lg-6">
@@ -15,7 +43,9 @@ function IssueDetail () {
                                 <dt>Status:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"><span className="label label-primary">Active</span></dd>
+                                <dd className="mb-1"><span className="label label-primary">
+                                    {issue.issue.fields.status.name}
+                                </span></dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -23,15 +53,7 @@ function IssueDetail () {
                                 <dt>Created by:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1">Alex Smith</dd>
-                            </div>
-                        </dl>
-                        <dl className="row mb-0">
-                            <div className="col-sm-4 text-sm-right">
-                                <dt>Messages:</dt>
-                            </div>
-                            <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"> 162</dd>
+                                <dd className="mb-1"> {issue.issue.fields.creator.displayName}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -39,15 +61,15 @@ function IssueDetail () {
                                 <dt>Client:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"><a href="nothing.html" className="text-navy"> Zender Company</a></dd>
+                                <dd className="mb-1"> {issue.issue.fields.project.projectCategory.name}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
                             <div className="col-sm-4 text-sm-right">
-                                <dt>Version:</dt>
+                                <dt>Project:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"> v1.4.2</dd>
+                                {/*<dd className="mb-1"> {issue.fields.project.name}</dd>*/}
                             </div>
                         </dl>
 
@@ -59,7 +81,7 @@ function IssueDetail () {
                                 <dt>Last Updated:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1">16.08.2014 12:15:57</dd>
+                                {/*<dd className="mb-1"> {DateFormat(issue.fields.updated, "mmmm dS, yyyy")}</dd>*/}
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -67,7 +89,7 @@ function IssueDetail () {
                                 <dt>Created:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"> 10.07.2014 23:36:57</dd>
+                                {/*<dd className="mb-1"> {DateFormat(issue.fields.created, "mmmm dS, yyyy")}</dd>*/}
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -76,7 +98,7 @@ function IssueDetail () {
                             </div>
                             <div className="col-sm-8 text-sm-left">
                                 <dd className="project-people mb-1">
-                                    <a href="http://webapplayers.com/inspinia_admin-v2.9.3/img/a3.jpg"><img alt="image" className="rounded-circle" src="http://webapplayers.com/inspinia_admin-v2.9.3/img/a3.jpg" /></a>
+                                    {/*<img alt="image" className="rounded-circle" src={issue.fields.creator.avatarUrls['16x16']} />*/}
                                 </dd>
                             </div>
                         </dl>
@@ -85,6 +107,7 @@ function IssueDetail () {
 
             </div>
         </div>
+        </Ibox>
     )
 }
 
