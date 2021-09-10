@@ -15,31 +15,33 @@ function IssueList () {
     // const avatar_uri = 'issue.fields.creator.avatarUrls.24x24'
 
     useEffect(()=> {
-        async function fetchIssues() {
-            const response = await jira
-                .get(requests.fetchIssues + `"${key}"`)
-                .catch((err) => console.log(err));
+        const fetchIssues = async () => {
+            try {
+                const response = await jira
+                    .get(requests.fetchIssues + `"${key}"`)
+                    setIssues(response.data.issues.map(issue => {
 
-        if (response && response.data){
-
-            setIssues(response.data.issues.map(issue => {
-
-                return {
-                    id: issue.id,
-                    key: issue.key,
-                    description: issue.description,
-                    summary: issue.fields.summary,
-                    project_id: issue.fields.project.id,
-                    created: DateFormat(issue.fields.created, "mmmm dS, yyyy"),
-                    avatarUrl: issue.fields.creator.avatarUrls['24x24'],
+                        return {
+                            id: issue.id,
+                            key: issue.key,
+                            description: issue.description,
+                            summary: issue.fields.summary,
+                            project_id: issue.fields.project.id,
+                            created: DateFormat(issue.fields.created, "mmmm dS, yyyy"),
+                            avatarUrl: issue.fields.creator.avatarUrls['24x24'],
+                        }
+                    }))
+            } catch (err) {
+                if (err.response) {
+                    console.log(err.response.data);
+                    console.lgo(err.response.status);
+                    console.log(err.response.headers);
+                } else {
+                    console.log(`Error: ${err.message}`)
                 }
-            })
-            )
-            console.log(response)
-
+            }
         };
-    }
-    fetchIssues();
+        fetchIssues();
     // eslint-disable-next-line
     }, [key])
 

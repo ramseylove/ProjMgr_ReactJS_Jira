@@ -7,34 +7,43 @@ import DateFormat from "dateformat";
 import Ibox from '../Shared/Ibox';
 
 function IssueDetail () {
-    const [ issue, setIssue ] = useState({loading: false, issue: null,})
+    const [ issue, setIssue ] = useState()
     const { key } = useParams();
 
 
     useEffect(()=> {
-        setIssue({loading: true})
-        async function fetchIssue() {
-            const response = await jira
-                .get(requests.fetchIssue + key )
-                .catch((err) => console.log(err));
+        const fetchIssue = async () => {
+            try {
+                const response = await jira
+                    .get(requests.fetchIssue + key)
+                    .then(res=>{
+                        console.log('Response from main API: ',res)
+                        setIssue(res.data)
+                        console.log(issue)
+                    })
 
-        if (response && response.data){
-            console.log(response.data)
-            setIssue({loading: false, issue: response.data})
-        };
-        console.log(issue)
+            } catch (err) {
+                 if (err.response) {
+                    console.log(err.response.data);
+                    console.log(err.response.status);
+                    console.log(err.response.headers);
+                } else {
+                    console.log(`Error: ${err.message}`)
+                }
+            }
+
 
     }
     fetchIssue();
     // eslint-disable-next-line
-    }, [key])
+    }, [])
     return (
         <Ibox title='Issue' >
         <div className="row">
             <div className="col-lg-12">
                 <div className="m-b-md">
                     <button className="btn btn-white btn-xs float-right">Edit Issue</button>
-                    <h2>{issue.issue.fields.summary}</h2>
+                    <h2>{issue.fields.summary}</h2>
                 </div>
                 <div className="row">
                     <div className="col-lg-6">
@@ -44,7 +53,7 @@ function IssueDetail () {
                             </div>
                             <div className="col-sm-8 text-sm-left">
                                 <dd className="mb-1"><span className="label label-primary">
-                                    {issue.issue.fields.status.name}
+                                    {/*{issue.fields.status.name}*/}
                                 </span></dd>
                             </div>
                         </dl>
@@ -53,7 +62,7 @@ function IssueDetail () {
                                 <dt>Created by:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"> {issue.issue.fields.creator.displayName}</dd>
+                                {/*<dd className="mb-1"> {issue.fields.creator.displayName}</dd>*/}
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -61,7 +70,7 @@ function IssueDetail () {
                                 <dt>Client:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                <dd className="mb-1"> {issue.issue.fields.project.projectCategory.name}</dd>
+                                {/*<dd className="mb-1"> {issue.fields.project.projectCategory.name}</dd>*/}
                             </div>
                         </dl>
                         <dl className="row mb-0">
