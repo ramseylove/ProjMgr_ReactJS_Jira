@@ -5,8 +5,10 @@ import {requests} from "../../requests";
 import DateFormat from "dateformat";
 
 import Ibox from '../Shared/Ibox';
+import Loading from '../Shared/Loading';
 
 function IssueDetail () {
+    const [isLoading, setIsLoading] = useState(true)
     const [ issue, setIssue ] = useState()
     const { key } = useParams();
 
@@ -21,6 +23,7 @@ function IssueDetail () {
                         setIssue(res.data)
                         console.log(issue)
                     })
+                setIsLoading(false)
 
             } catch (err) {
                  if (err.response) {
@@ -36,7 +39,11 @@ function IssueDetail () {
     }
     fetchIssue();
     // eslint-disable-next-line
-    }, [])
+    }, [key])
+
+    if (isLoading) {
+        return <Loading />
+    }
     return (
         <Ibox title='Issue' >
         <div className="row">
@@ -53,7 +60,7 @@ function IssueDetail () {
                             </div>
                             <div className="col-sm-8 text-sm-left">
                                 <dd className="mb-1"><span className="label label-primary">
-                                    {/*{issue.fields.status.name}*/}
+                                    {issue.fields.status.name}
                                 </span></dd>
                             </div>
                         </dl>
@@ -62,7 +69,7 @@ function IssueDetail () {
                                 <dt>Created by:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                {/*<dd className="mb-1"> {issue.fields.creator.displayName}</dd>*/}
+                                <dd className="mb-1"> {issue.fields.creator.displayName}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -70,7 +77,7 @@ function IssueDetail () {
                                 <dt>Client:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                {/*<dd className="mb-1"> {issue.fields.project.projectCategory.name}</dd>*/}
+                                <dd className="mb-1"> {issue.fields.project.projectCategory.name}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -78,7 +85,7 @@ function IssueDetail () {
                                 <dt>Project:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                {/*<dd className="mb-1"> {issue.fields.project.name}</dd>*/}
+                                <dd className="mb-1"> {issue.fields.project.name}</dd>
                             </div>
                         </dl>
 
@@ -90,7 +97,7 @@ function IssueDetail () {
                                 <dt>Last Updated:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                {/*<dd className="mb-1"> {DateFormat(issue.fields.updated, "mmmm dS, yyyy")}</dd>*/}
+                                <dd className="mb-1"> {DateFormat(issue.fields.updated, "mmmm dS, yyyy")}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -98,7 +105,7 @@ function IssueDetail () {
                                 <dt>Created:</dt>
                             </div>
                             <div className="col-sm-8 text-sm-left">
-                                {/*<dd className="mb-1"> {DateFormat(issue.fields.created, "mmmm dS, yyyy")}</dd>*/}
+                                <dd className="mb-1"> {DateFormat(issue.fields.created, "mmmm dS, yyyy")}</dd>
                             </div>
                         </dl>
                         <dl className="row mb-0">
@@ -107,7 +114,7 @@ function IssueDetail () {
                             </div>
                             <div className="col-sm-8 text-sm-left">
                                 <dd className="project-people mb-1">
-                                    {/*<img alt="image" className="rounded-circle" src={issue.fields.creator.avatarUrls['16x16']} />*/}
+                                    <img alt="image" className="rounded-circle" src={issue.fields.creator.avatarUrls['16x16']} />
                                 </dd>
                             </div>
                         </dl>

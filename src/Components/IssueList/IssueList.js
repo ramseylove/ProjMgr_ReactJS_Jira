@@ -7,9 +7,11 @@ import { requests } from '../../requests';
 import Ibox from '../Shared/Ibox';
 
 import Issue from '../Issue/Issue';
+import Loading from "../Shared/Loading";
 
 function IssueList () {
     const [ issues, setIssues ] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
     const { key } = useParams();
 
     // const avatar_uri = 'issue.fields.creator.avatarUrls.24x24'
@@ -31,6 +33,7 @@ function IssueList () {
                             avatarUrl: issue.fields.creator.avatarUrls['24x24'],
                         }
                     }))
+                setIsLoading(false)
             } catch (err) {
                 if (err.response) {
                     console.log(err.response.data);
@@ -45,22 +48,26 @@ function IssueList () {
     // eslint-disable-next-line
     }, [key])
 
+    if (isLoading) {
+        return <Loading />
+    }
+
     return(
         <Ibox title="Issues">
-        <div className="project-list">
-            <table className="table table-hover">
-                <tbody>
-                {issues.map(issue => {
-                    return <Issue key={issue.key}
-                                    id={issue.key}
-                                    name={issue.summary}
-                                    created={issue.created}
-                                    avatarUrl={issue.avatarUrl}
-                                    />
-                })}
-                </tbody>
-            </table>
-        </div>
+            <div className="project-list">
+                <table className="table table-hover">
+                    <tbody>
+                    {issues.map(issue => {
+                        return <Issue key={issue.key}
+                                        id={issue.key}
+                                        name={issue.summary}
+                                        created={issue.created}
+                                        avatarUrl={issue.avatarUrl}
+                                        />
+                    })}
+                    </tbody>
+                </table>
+            </div>
         </Ibox>
         
     )

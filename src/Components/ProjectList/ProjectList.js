@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import jira from '../Jira/Jira';
 import Ibox from '../Shared/Ibox';
 import IboxSearch from '../Shared/IboxSearch';
+import Loading from "../Shared/Loading";
 
 function ProjectList({ fetchUrl, percentage }) {
   const [ projects, setProjects ] = useState([]);
-  const title = "Project List";
+    const [isLoading, setIsLoading] = useState(true);
+    const title = "Project List";
 
   const avatar = "project.lead.avatarUrls.16x16";
 
@@ -34,10 +36,15 @@ function ProjectList({ fetchUrl, percentage }) {
         })
         
       )
+          setIsLoading(false)
     }}
 
     getProjects();
   }, [fetchUrl])
+
+    if (isLoading) {
+        return <Loading />
+    }
 
     return (
         <Ibox title={title}>
