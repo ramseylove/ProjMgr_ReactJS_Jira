@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from "../Shared/Button";
+
 
 function Issue (props) {
     // let avatarUrl = props.avatarUrl['16x16']
@@ -20,8 +22,10 @@ function Issue (props) {
                     <img alt="profile-pic" className="rounded-circle" src={props.avatarUrl} />
                 </td>
                 <td className="project-actions">
-                    <a href="view.html" className="btn btn-white btn-sm"><i className="fa fa-folder"></i> View </a>
-                    <a href="view.html" className="btn btn-white btn-sm"><i className="fa fa-pencil"></i> Edit </a>
+                    <Button bsStyle={'white btn-sm'} onClick={props.onClick}>View</Button>
+                    <Button bsStyle={'white btn-sm'} onClick={props.onClick}>Edit</Button>
+                    {/*<a href="view.html" className="btn btn-white btn-sm"><i className="fa fa-folder"></i> View </a>*/}
+                    {/*<a href="view.html" className="btn btn-white btn-sm"><i className="fa fa-pencil"></i> Edit </a>*/}
                 </td>
             </tr>
     )

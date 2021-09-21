@@ -9,7 +9,7 @@ import Ibox from '../Shared/Ibox';
 import Issue from '../Issue/Issue';
 import Loading from "../Shared/Loading";
 
-function IssueList () {
+function IssueList (props) {
     const [ issues, setIssues ] = useState([])
     const [isLoading, setIsLoading] = useState(true);
     const { key } = useParams();
@@ -37,7 +37,7 @@ function IssueList () {
             } catch (err) {
                 if (err.response) {
                     console.log(err.response.data);
-                    console.lgo(err.response.status);
+                    console.log(err.response.status);
                     console.log(err.response.headers);
                 } else {
                     console.log(`Error: ${err.message}`)
@@ -63,6 +63,7 @@ function IssueList () {
                                         name={issue.summary}
                                         created={issue.created}
                                         avatarUrl={issue.avatarUrl}
+                                        onClick={props.onAddIssue}
                                         />
                     })}
                     </tbody>

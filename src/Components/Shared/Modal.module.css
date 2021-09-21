@@ -37,3 +37,9 @@
 .modal-footer {
   margin-top: 0;
 }
+.modal-backdrop {
+  z-index: 2040 !important;
+}
+.modal {
+  z-index: 2050 !important;
+}
