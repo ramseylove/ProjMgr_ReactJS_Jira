@@ -1,18 +1,60 @@
 /* ISSUE TRACKER */
 .issue-tracker .btn-link {
     color: #1ab394;
-  }
-  table.issue-tracker tbody tr td {
-    vertical-align: middle;
-    height: 50px;
-  }
-  .issue-info {
-    width: 50%;
-  }
-  .issue-info a {
-    font-weight: 600;
-    color: #676a6c;
-  }
-  .issue-info small {
-    display: block;
-  }
+}
+table.issue-tracker tbody tr td {
+  vertical-align: middle;
+  height: 50px;
+}
+.issue-info {
+  width: 50%;
+}
+.issue-info a {
+  font-weight: 600;
+  color: #676a6c;
+}
+.issue-info small {
+  display: block;
+}
+  /* PROJECTS */
+.issue-people,
+.issue-actions {
+  text-align: right;
+  vertical-align: middle;
+}
+dd.issue-people {
+  text-align: left;
+  margin-top: 5px;
+}
+.issue-people img {
+  width: 32px;
+  height: 32px;
+}
+.issue-title a {
+  font-size: 14px;
+  color: #676a6c;
+  font-weight: 600;
+}
+.issue-list table tr td {
+  border-top: none;
+  border-bottom: 1px solid #e7eaec;
+  padding: 15px 10px;
+  vertical-align: middle;
+}
+.issue-manager .tag-list li a {
+  font-size: 10px;
+  background-color: white;
+  padding: 5px 12px;
+  color: inherit;
+  border-radius: 2px;
+  border: 1px solid #e7eaec;
+  margin-right: 5px;
+  margin-top: 5px;
+  display: block;
+}
+.issue-files li a {
+  font-size: 11px;
+  color: #676a6c;
+  margin-left: 10px;
+  line-height: 22px;
+}
