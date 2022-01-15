@@ -1,0 +1,37 @@
+.navbar-default .nav > li > a:hover,
+.navbar-default .nav > li > a:focus {
+  background-color: #293846;
+  color: white;
+}
+.navbar-default {
+  background-color: transparent;
+  border-color: #2f4050;
+}
+body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
+  font-size: 12px;
+  border-radius: 3px;
+}
+.navbar-default .special_link a {
+  background: #1ab394;
+  color: white;
+}
+.navbar-default .special_link a:hover {
+  background: #17987e !important;
+  color: white;
+}
+.navbar-default .special_link a span.label {
+  background: #fff;
+  color: #1ab394;
+}
+.navbar-default .landing_link a {
+  background: #1cc09f;
+  color: white;
+}
+.navbar-default .landing_link a:hover {
+  background: #1ab394 !important;
+  color: white;
+}
+.navbar-default .landing_link a span.label {
+  background: #fff;
+  color: #1cc09f;
+}
