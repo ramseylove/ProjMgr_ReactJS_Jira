@@ -57,9 +57,7 @@ function ProjectList({ fetchUrl, percentage }) {
                 <td className="project-status">
                   <span className="label label-primary">Active</span>
                 </td>
-                <td className="project-title">
-                  <Link to={`/issues/${project.key}`}>{project.name}</Link>
-                </td>
+                <td className="project-title">{project.name}</td>
                 <td className="project-completion">
                   <small>Completion with : ${project.percentage}%</small>
                   <div className="progress progress-mini">
