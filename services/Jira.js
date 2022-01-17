@@ -1,20 +1,14 @@
 import Axios from "axios";
 
-// const baseUrl = String(process.env.REACT_APP_JIRA_URL);
-// const username = String(process.env.REACT_APP_JIRA_USERNAME);
-// const apiKey = String(process.env.REACT_APP_JIRA_KEY);
-const baseUrl = "https://atriadev.atlassian.net/rest/api/2";
-const username = "ryan@atriadev.com";
-const apiKey = "0CntQ6RHgkZZAfrkkWsqCD7F";
-
-// const buff = Buffer.from(username + ":" + apiKey);
-// const base64 = buff.toString("base64");
+// const baseUrl = "https://atriadev.atlassian.net/rest/api/2";
+// const username = process.env.JIRA_USER;
+// const apiKey = process.env.JIRA_KEY;
 
 const jira = Axios.create({
-  baseURL: baseUrl,
+  baseURL: "https://atriadev.atlassian.net/rest/api/2",
   auth: {
-    username: username,
-    password: apiKey,
+    username: process.env.JIRA_USER,
+    password: process.env.JIRA_KEY,
   },
   timeout: 3000,
   headers: {

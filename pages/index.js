@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+import Axios from "axios";
 import NavBar from "../Components/NavBar/NavBar";
 import TopBar from "../Components/TopBar/TopBar";
 import { requests } from "../src/requests";
@@ -7,7 +9,7 @@ import { requests } from "../src/requests";
 // import Issue from "../Issue/Issue";
 // import ProjectList from "../ProjectList/ProjectList";
 // import IssueDetail from "../IssueDetail/IssueDetail";
-import { useState } from "react";
+
 import ProjectList from "../Components/ProjectList/ProjectList";
 // import ModalForm from "../Components/Shared/ModalForm";
 
@@ -48,6 +50,22 @@ function HomePage() {
       </div>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const jira = Axios.create({
+    baseURL: "https://atriadev.atlassian.net/rest/api/2",
+    auth: {
+      username: process.env.JIRA_USER,
+      password: process.env.JIRA_KEY,
+    },
+    timeout: 3000,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Accept: "application/json",
+      // X-Atlassian-Token: "no-check",
+    },
+  });
 }
 
 export default HomePage;
