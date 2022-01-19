@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Axios from "axios";
+import Link from "next/link";
+import React, { Fragment, useState } from "react";
 import NavBar from "../Components/NavBar/NavBar";
 import TopBar from "../Components/TopBar/TopBar";
 import { requests } from "../src/requests";
@@ -10,8 +10,6 @@ import { requests } from "../src/requests";
 // import ProjectList from "../ProjectList/ProjectList";
 // import IssueDetail from "../IssueDetail/IssueDetail";
 
-import ProjectList from "../Components/ProjectList/ProjectList";
-import { getAllProjects } from "../services/Jira";
 // import ModalForm from "../Components/Shared/ModalForm";
 
 function HomePage(props) {
@@ -25,45 +23,22 @@ function HomePage(props) {
   };
 
   return (
-    <div id="wrapper">
-      <NavBar />
-      <div id="page-wrapper" className="gray-bg">
-        <TopBar />
-        {/* <ProjectList fetchUrl={requests.fetchProject} /> */}
-        {/* <Header title={this.props.title}/>
-        {issueModalIsShown && (
-          <ModalForm onClose={hideIssueModalHandler} className="show" />
-        )}
-        <Router>
-          <Route exact={true} path="/">
-            <ProjectList fetchUrl={requests.fetchProject} />
-          </Route>
-          <Route exact={true} path="/issues/:key">
-            <IssueList
-              fetchUrl={requests.fetchIssues}
-              onAddIssue={showIssueModalHandler}
-            />
-          </Route>
-          <Route path="/issues/:key/detail">
-            <IssueDetail fetchUrl={requests.fetchIssue} />
-          </Route>
-        </Router> */}
-      </div>
-    </div>
+    <Fragment>
+      <h2>Welcome to the Home Page</h2>
+      <Link href="/projects">Go to Projects</Link>
+      {/* <ul>
+          {props.data.map((project) => (
+            <li key={project.id}>{project.name}</li>
+          ))}
+        </ul> */}
+
+      {/* <Header title={this.props.title}/>
+        // {issueModalIsShown && (
+        //   <ModalForm onClose={hideIssueModalHandler} className="show" />
+        // )}
+      */}
+    </Fragment>
   );
-}
-
-export const getStaticProps = async (ctx) => {
-
-  const data = await getAllProjects();
-  console.log(data)
-
-
-  return {
-    props:{
-      data:data
-    }
-  }
 }
 
 export default HomePage;

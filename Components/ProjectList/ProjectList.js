@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 // import { Link } from 'react-router-dom';
-import jira from "../../services/Jira";
+// import jira from "../../services/Jira";
 import Ibox from "../Shared/Ibox";
 import IboxSearch from "../Shared/IboxSearch";
 import Loading from "../Shared/Loading";
+import ProjectItem from "./ProjectItem";
 
-function ProjectList({ fetchUrl, percentage }) {
-  const [projects, setProjects] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+function ProjectList(props) {
+  const { projects } = props;
+  // const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const title = "Project List";
 
   const avatar = "project.lead.avatarUrls.16x16";
@@ -15,33 +17,7 @@ function ProjectList({ fetchUrl, percentage }) {
   function getRandomInt() {
     return Math.floor(Math.random() * 99);
   }
-
-  useEffect(() => {
-    async function getProjects() {
-      const response = await jira
-        .get(fetchUrl, { params: { expand: "issueTypes" } })
-        .catch((err) => console.log(err));
-
-      if (response && response.data) {
-        setProjects(
-          response.data.map((project) => {
-            return {
-              id: project.id,
-              key: project.key,
-              name: project.name,
-              self: project.self,
-              issueTypes: project.issueTypes,
-              percentage: getRandomInt(),
-            };
-          })
-        );
-        setIsLoading(false);
-      }
-    }
-
-    getProjects();
-  }, [fetchUrl]);
-
+  // TODO: manage loading state
   if (isLoading) {
     return <Loading />;
   }
@@ -53,36 +29,13 @@ function ProjectList({ fetchUrl, percentage }) {
         <table className="table table-hover">
           <tbody>
             {projects.map((project) => (
-              <tr key={project.key}>
-                <td className="project-status">
-                  <span className="label label-primary">Active</span>
-                </td>
-                <td className="project-title">{project.name}</td>
-                <td className="project-completion">
-                  <small>Completion with : ${project.percentage}%</small>
-                  <div className="progress progress-mini">
-                    <div
-                      className="progress-bar"
-                      style={{ width: project.percentage + "%" }}
-                    ></div>
-                  </div>
-                </td>
-                <td className="project-people">
-                  <img
-                    alt="Ryan Meyer"
-                    src={avatar}
-                    className="rounded-circle"
-                  />
-                </td>
-                <td className="project-actions">
-                  <button href="#" className="btn btn-white btn-sm">
-                    <i className="fa fa-folder"></i> View{" "}
-                  </button>
-                  <button href="#" className="btn btn-white btn-sm">
-                    <i className="fa fa-pencil"></i> Edit{" "}
-                  </button>
-                </td>
-              </tr>
+              <ProjectItem
+                id={project.id}
+                key={project.key}
+                name={project.name}
+                percentage={project.percentage}
+                avatar={avatar}
+              />
             ))}
           </tbody>
         </table>

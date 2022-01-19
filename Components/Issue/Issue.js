@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 // import { Link } from 'react-router-dom';
 import Button from "../Shared/Button";
 
@@ -11,7 +12,7 @@ function Issue(props) {
         <span className="label label-primary">Active</span>
       </td>
       <td className="project-title">
-        <Link to={`/issues/${props.id}/detail`}>{props.name}</Link>
+        <Link href={`/issues/${props.id}/detail`}>{props.name}</Link>
         <br />
         <small>{props.created}</small>
       </td>
