@@ -12,10 +12,28 @@ const jira = Axios.create({
   },
   timeout: 3000,
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-    Accept: "application/json",
-    // X-Atlassian-Token: "no-check",
+    // "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": 'application/json',
+    // Accept: "application/json",
+    'X-Atlassian-Token': "no-check",
   },
 });
 
-export default jira;
+
+export async function getAllProjects() {
+  
+  const data = jira.get("/project/search", { params: { expand: "issueTypes" } })
+    
+    // const data = response.json();
+
+    const projects = []
+
+    for (const id in data) {
+      projects.push({
+        id: id,
+        ...data[id],
+      });
+    }
+
+    return projects;
+}

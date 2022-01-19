@@ -11,9 +11,10 @@ import { requests } from "../src/requests";
 // import IssueDetail from "../IssueDetail/IssueDetail";
 
 import ProjectList from "../Components/ProjectList/ProjectList";
+import { getAllProjects } from "../services/Jira";
 // import ModalForm from "../Components/Shared/ModalForm";
 
-function HomePage() {
+function HomePage(props) {
   const [issueModalIsShown, setIssueIsShown] = useState(false);
 
   const showIssueModalHandler = () => {
@@ -28,7 +29,7 @@ function HomePage() {
       <NavBar />
       <div id="page-wrapper" className="gray-bg">
         <TopBar />
-        <ProjectList fetchUrl={requests.fetchProject} />
+        {/* <ProjectList fetchUrl={requests.fetchProject} /> */}
         {/* <Header title={this.props.title}/>
         {issueModalIsShown && (
           <ModalForm onClose={hideIssueModalHandler} className="show" />
@@ -52,20 +53,17 @@ function HomePage() {
   );
 }
 
-export async function getStaticProps() {
-  const jira = Axios.create({
-    baseURL: "https://atriadev.atlassian.net/rest/api/2",
-    auth: {
-      username: process.env.JIRA_USER,
-      password: process.env.JIRA_KEY,
-    },
-    timeout: 3000,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Accept: "application/json",
-      // X-Atlassian-Token: "no-check",
-    },
-  });
+export const getStaticProps = async (ctx) => {
+
+  const data = await getAllProjects();
+  console.log(data)
+
+
+  return {
+    props:{
+      data:data
+    }
+  }
 }
 
 export default HomePage;

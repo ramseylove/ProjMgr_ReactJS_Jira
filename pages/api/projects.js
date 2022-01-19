@@ -1,19 +1,23 @@
 import jira from "../../services/Jira";
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   // const avatar = "project.lead.avatarUrls.16x16";
   const response = await jira
     .get("/project/search", { params: { expand: "issueTypes" } })
-    .catch((err) => console.log(err));
-
-  if (response) {
-    res.status(201).json({ data: response.data });
+    
+    const data = response.json();
+  
+  if (!response) {
+    res.status(404).json({ error: "there was an error"});
+    return;
   } else {
-    res.status(404).json({ error: "there was an error", data: response });
+    res.status(201).json({ data: data });
+    console.log(data)
   }
-  console.log(response.data);
+  return data;
 }
 
+export default handler
 // setProjects(
 //     response.data.map((project) => {
 //         return {
