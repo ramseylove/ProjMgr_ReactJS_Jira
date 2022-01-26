@@ -46,6 +46,8 @@ function IssueList(props) {
   //   // eslint-disable-next-line
   // }, [key]);
 
+  console.log(issues)
+
   if (isLoading) {
     return <Loading />;
   }
@@ -59,7 +61,7 @@ function IssueList(props) {
               return (
                 <Issue
                   key={issue.key}
-                  id={issue.key}
+                  id={issue.id}
                   name={issue.summary}
                   created={issue.created}
                   avatarUrl={issue.avatarUrl}

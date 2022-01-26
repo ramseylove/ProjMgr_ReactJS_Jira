@@ -1,45 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import jira from "../../services/Jira";
-import { requests } from "../../src/requests";
+// import { useParams } from "react-router-dom";
+// import jira from "../../services/Jira";
+// import { requests } from "../../src/requests";
 import DateFormat from "dateformat";
 
 import Ibox from "../Shared/Ibox";
 import Loading from "../Shared/Loading";
 
-function IssueDetail() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [issue, setIssue] = useState();
-  const { key } = useParams();
+function IssueDetail(props) {
+  const { issue } = props
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [issue, setIssue] = useState(props.issue);
+  // const { key } = useParams();
 
-  useEffect(() => {
-    const fetchIssue = async () => {
-      try {
-        const response = await jira
-          .get(requests.fetchIssue + key)
-          .then((res) => {
-            console.log("Response from main API: ", res);
-            setIssue(res.data);
-            console.log(issue);
-          });
-        setIsLoading(false);
-      } catch (err) {
-        if (err.response) {
-          console.log(err.response.data);
-          console.log(err.response.status);
-          console.log(err.response.headers);
-        } else {
-          console.log(`Error: ${err.message}`);
-        }
-      }
-    };
-    fetchIssue();
-    // eslint-disable-next-line
-  }, [key]);
+  // useEffect(() => {
+  //   const fetchIssue = async () => {
+  //     try {
+  //       const response = await jira
+  //         .get(requests.fetchIssue + key)
+  //         .then((res) => {
+  //           console.log("Response from main API: ", res);
+  //           setIssue(res.data);
+  //           console.log(issue);
+  //         });
+  //       setIsLoading(false);
+  //     } catch (err) {
+  //       if (err.response) {
+  //         console.log(err.response.data);
+  //         console.log(err.response.status);
+  //         console.log(err.response.headers);
+  //       } else {
+  //         console.log(`Error: ${err.message}`);
+  //       }
+  //     }
+  //   };
+  //   fetchIssue();
+  //   // eslint-disable-next-line
+  // }, [key]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
   return (
     <Ibox title="Issue">
       <div className="row">
@@ -122,7 +123,7 @@ function IssueDetail() {
                 <div className="col-sm-8 text-sm-left">
                   <dd className="project-people mb-1">
                     <img
-                      alt="image"
+                      alt="users avatar"
                       className="rounded-circle"
                       src={issue.fields.creator.avatarUrls["16x16"]}
                     />

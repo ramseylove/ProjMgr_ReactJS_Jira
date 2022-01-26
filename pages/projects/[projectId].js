@@ -1,11 +1,11 @@
 import { Fragment } from "react";
-import IssueList from "../../Components/IssueList/IssueList";
+import IssueListPage from "../issues";
 import { getProjectIssues } from "../../services/Jira";
 
 function ProjectIssuesList(props) {
   return (
     <Fragment>
-      <IssueList issues={props.issues} />
+      <IssueListPage issues={props.issues} />
     </Fragment>
   );
 }

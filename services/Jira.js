@@ -44,7 +44,7 @@ export async function getProjectIssues(projectId) {
   const response = await jira.get("/search?jql=project%20%3D%20" + projectId);
 
   const data = await response.data;
-  // console.log(data.issues[0].fields);
+  // console.log(data);
   const issues = data.issues.map((issue) => ({
     id: issue.id,
     key: issue.key,
@@ -56,4 +56,15 @@ export async function getProjectIssues(projectId) {
   }));
 
   return issues;
+}
+
+export async function getIssueDetails(issueId) {
+  try {
+    const response = await jira.get('/issue/' + issueId);
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+  
 }

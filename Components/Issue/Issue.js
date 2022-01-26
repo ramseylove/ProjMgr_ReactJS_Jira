@@ -12,7 +12,7 @@ function Issue(props) {
         <span className="label label-primary">Active</span>
       </td>
       <td className="project-title">
-        <Link href={`/issues/${props.id}/detail`}>{props.name}</Link>
+        <Link href={`/issues/${props.id}`}>{props.name}</Link>
         <br />
         <small>{props.created}</small>
       </td>
@@ -24,10 +24,10 @@ function Issue(props) {
         />
       </td>
       <td className="project-actions">
-        <Button bsStyle={"white btn-sm"} onClick={props.onClick}>
+        <Link href={'/issues/' + props.id}><Button bsStyle={"white btn-sm"}>
           View
-        </Button>
-        <Button bsStyle={"white btn-sm"} onClick={props.onClick}>
+        </Button></Link>
+        <Button bsStyle={"white btn-sm"} >
           Edit
         </Button>
         {/*<a href="view.html" className="btn btn-white btn-sm"><i className="fa fa-folder"></i> View </a>*/}
